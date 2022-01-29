@@ -31,6 +31,10 @@ dependencies {
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	implementation("org.passay:passay:1.0")
+	implementation("org.springframework.boot:spring-boot-starter-mail")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+	testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
 }
 
 tasks.withType<KotlinCompile> {
