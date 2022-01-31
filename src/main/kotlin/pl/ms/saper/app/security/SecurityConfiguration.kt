@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter
 import pl.ms.saper.app.security.MyUserDetails
 
+//TODO : check anonymous and authentication (in future change to jwt (to learn this))
 @EnableWebSecurity
 class SecurityConfiguration: WebSecurityConfigurerAdapter() {
 

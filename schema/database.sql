@@ -4,7 +4,7 @@ USE KotlinSaper;
 CREATE TABLE App_Users (
     user_id int not null primary key auto_increment,
     username varchar(128) not null,
-    `password` varchar(256) not null,
+    user_password varchar(256) not null,
     email varchar(128) not null,
     password_token varchar(256)
 );
