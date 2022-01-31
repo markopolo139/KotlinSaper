@@ -34,6 +34,8 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter() {
             .disable()
             .cors()
             .and()
+            .anonymous().principal("anonymous").authorities("ROLE_ANONYMOUS")
+            .and()
             .authorizeRequests()
             .antMatchers("/test", "/login")
             .permitAll()
