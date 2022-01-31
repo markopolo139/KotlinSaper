@@ -22,7 +22,7 @@ class MyUserDetails: UserDetailsService {
         return User.builder()
             .username(username)
             .password(currentUser.userPassword)
-            .authorities(*currentUser.rolesSet.toTypedArray())
+            .roles(*currentUser.rolesSet.toTypedArray())
             .build().toCustomUser()
     }
 }

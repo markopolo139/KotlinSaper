@@ -3,7 +3,7 @@ package pl.ms.saper.app.data.entites
 import javax.persistence.*
 
 @Entity
-@Table(name = "App_Users")
+@Table(name = "app_users")
 class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
