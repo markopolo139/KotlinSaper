@@ -1,8 +1,10 @@
 package pl.ms.saper.app.exceptions
 
-class InvalidUserException: AppExceptions {
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 
-    constructor() : super()
+class InvalidUserException: UsernameNotFoundException {
+
+    constructor() : super("No username specified")
     constructor(username: String): super("Invalid username: $username")
 
 }
