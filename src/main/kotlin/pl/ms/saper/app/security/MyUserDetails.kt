@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 import pl.ms.saper.app.data.repositories.UserRepository
 import pl.ms.saper.app.exceptions.InvalidUserException
+import pl.ms.saper.app.utils.toCustomUser
 
 @Service
 class MyUserDetails: UserDetailsService {
