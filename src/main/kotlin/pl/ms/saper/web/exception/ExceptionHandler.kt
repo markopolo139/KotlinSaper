@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.InternalAuthenticationServiceException
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.MissingServletRequestParameterException
+import org.springframework.web.bind.ServletRequestBindingException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
@@ -15,6 +17,7 @@ import pl.ms.saper.app.exceptions.InvalidPasswordException
 import pl.ms.saper.app.exceptions.InvalidUserException
 import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
+import javax.validation.ConstraintViolationException
 
 @Suppress("UNCHECKED_CAST")
 @ControllerAdvice
@@ -55,6 +58,23 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
             apiSubErrors = subApiErrors,
             httpStatus = HttpStatus.BAD_REQUEST
         ) as ResponseEntity<Any>
+    }
+
+    @ExceptionHandler(ConstraintViolationException::class)
+    fun constraintViolationExceptionHandler(ex: ConstraintViolationException): ResponseEntity<ApiError> {
+        val subApiErrors: List<ApiSubError> = ex.constraintViolations.asSequence().map {
+            ApiSubError(
+                error = "validation failed for ${it.invalidValue} - ${it.message}",
+                suggestedAction = "Check rejected value"
+            )
+        }.toList()
+
+        return error(
+            suggestedAction = "Check error sublist for more information",
+            errorMessage = "Error occurred during validation",
+            apiSubErrors = subApiErrors,
+            httpStatus = HttpStatus.BAD_REQUEST
+        )
     }
 
     @ExceptionHandler(InvalidUserException::class)
