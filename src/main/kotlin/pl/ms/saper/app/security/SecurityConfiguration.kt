@@ -37,7 +37,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter() {
             .anonymous().principal("anonymous").authorities("ROLE_ANONYMOUS")
             .and()
             .authorizeRequests()
-            .antMatchers("/test", "/login", "/api/v1/register")
+            .antMatchers("/test", "/login", "/api/v1/register", "/api/v1/send/message", "/api/v1/reset/password")
             .permitAll()
             .antMatchers("/AuthenticationTest")
             .authenticated()
