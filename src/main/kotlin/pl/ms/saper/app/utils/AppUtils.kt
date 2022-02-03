@@ -23,9 +23,10 @@ fun validatePassword(password: String): String {
         listOf(
             LengthRule(5,Int.MAX_VALUE),
             WhitespaceRule(),
-            SpecialCharacterRule(1),
-            DigitCharacterRule(1),
-            UppercaseCharacterRule(1)
+            UsernameRule(true, true),
+            CharacterRule(EnglishCharacterData.UpperCase, 1),
+            CharacterRule(EnglishCharacterData.Special, 1),
+            CharacterRule(EnglishCharacterData.Digit, 1)
         )
     )
 

@@ -1,4 +1,5 @@
-CREATE DATABASE if not exists KotlinSaper;
+DELETE DATABASE KotlinSaper;
+CREATE DATABASE KotlinSaper;
 USE KotlinSaper;
 
 CREATE TABLE app_users (
@@ -6,7 +7,7 @@ CREATE TABLE app_users (
     username varchar(128) not null,
     user_password varchar(256) not null,
     email varchar(128) not null,
-    password_token varchar(256)
+    password_token varchar(256) unique
 );
 
 CREATE TABLE user_roles (
