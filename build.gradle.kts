@@ -35,6 +35,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+
+	implementation("org.springframework.boot:spring-boot-starter-log4j2")
+	configurations {
+		all{
+			exclude(module = "spring-boot-starter-logging")
+		}
+	}
 }
 
 tasks.withType<KotlinCompile> {
