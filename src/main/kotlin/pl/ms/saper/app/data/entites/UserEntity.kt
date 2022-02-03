@@ -5,15 +5,19 @@ import javax.persistence.*
 @Entity
 @Table(name = "app_users")
 class UserEntity(
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
     var userId: Int?,
+
     var username: String?,
+
     var userPassword: String?,
+
     var email: String?,
-    var passwordToken: String? = null
-) {
+
+    var passwordToken: String? = null,
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
@@ -23,7 +27,9 @@ class UserEntity(
     @Column(name = "roles")
     var rolesSet: MutableSet<String> = mutableSetOf()
 
-        override fun equals(other: Any?): Boolean {
+) {
+
+    override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
 

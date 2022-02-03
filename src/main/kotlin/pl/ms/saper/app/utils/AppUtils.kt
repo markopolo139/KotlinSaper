@@ -9,13 +9,10 @@ import pl.ms.saper.app.exceptions.InvalidPasswordException
 import pl.ms.saper.app.security.CustomUser
 import pl.ms.saper.web.models.request.RegistrationModel
 
-@Autowired
-private lateinit var passwordEncoder: PasswordEncoder
-
 fun UserDetails.toCustomUser(): CustomUser = CustomUser(username, password, authorities.toMutableSet())
 
 fun RegistrationModel.toUserEntity(): UserEntity = UserEntity(
-    null, username, password, email, null
+    null, username, password, email, null, mutableSetOf("USER")
 )
 
 fun validatePassword(password: String): String {
@@ -35,5 +32,5 @@ fun validatePassword(password: String): String {
     if (!ruleResult.isValid)
         throw InvalidPasswordException(ruleResult.details.toString())
 
-    return passwordEncoder.encode(password)
+    return password
 }
