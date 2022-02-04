@@ -41,3 +41,6 @@ CREATE TABLE boards (
     constraint foreign key(user_id) references app_users(user_id),
     constraint foreign key(configuration_id) references `configuration`(configuration_id)
 );
+
+INSERT INTO app_users VALUES(1, "guest", "$2a$12$0OTUMsGYKjMRWKYq6ecHpObjEj9/9utZm6kPRGzx1yasJpSo3PO3y", "email", null);
+INSERT INTO user_roles VALUES(1, "ANONYMOUS");
