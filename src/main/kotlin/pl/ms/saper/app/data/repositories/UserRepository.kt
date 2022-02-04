@@ -10,4 +10,8 @@ interface UserRepository: JpaRepository<UserEntity, Int> {
 
     fun findByUsername(username: String): Optional<UserEntity>
 
+    fun findByEmail(email: String): Optional<UserEntity>
+
+    fun findByPasswordToken(token: String): Optional<UserEntity>
+
 }

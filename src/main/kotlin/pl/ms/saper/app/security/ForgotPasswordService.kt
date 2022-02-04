@@ -13,8 +13,10 @@ import org.thymeleaf.context.Context
 import org.thymeleaf.spring5.ISpringTemplateEngine
 import org.thymeleaf.util.StringUtils
 import pl.ms.saper.app.data.repositories.UserRepository
+import pl.ms.saper.app.exceptions.InvalidTokenException
 import pl.ms.saper.app.exceptions.InvalidUserEmailException
 import pl.ms.saper.app.exceptions.SendingEmailException
+import pl.ms.saper.app.utils.validatePassword
 import java.io.File
 
 @Service
@@ -23,7 +25,6 @@ class ForgotPasswordService {
     companion object {
         const val EMAIL_PATH = "/api/v1/reset/password?token="
         const val EMAIL_FROM = "springtest1@onet.pl"
-        const val IMAGE_PATH = "../static/forgotPasswordImage.png"
     }
 
     @Autowired
@@ -78,6 +79,11 @@ class ForgotPasswordService {
 
     fun changePassword(token: String, newPassword: String) {
 
+        val userEntity = userRepository.findByPasswordToken(token).orElseThrow { throw InvalidTokenException() }
+        userEntity.userPassword = passwordEncoder.encode(validatePassword(newPassword))
+        userEntity.passwordToken = null
+
+        userRepository.save(userEntity)
     }
 
 }
