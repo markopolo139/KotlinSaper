@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import pl.ms.saper.app.exceptions.InvalidPasswordException
 import pl.ms.saper.app.exceptions.InvalidUserEmailException
 import pl.ms.saper.app.exceptions.InvalidUserException
+import pl.ms.saper.app.exceptions.SendingEmailException
 import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
@@ -97,5 +98,11 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
         suggestedAction = "Typed password is not correct, check error message",
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.BAD_REQUEST
+    )
+
+    @ExceptionHandler(SendingEmailException::class)
+    fun sendingEmailExceptionHandler(ex: SendingEmailException): ResponseEntity<ApiError> = error(
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.INTERNAL_SERVER_ERROR
     )
 }
