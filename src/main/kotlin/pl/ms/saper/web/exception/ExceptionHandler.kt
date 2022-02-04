@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import pl.ms.saper.app.exceptions.InvalidPasswordException
+import pl.ms.saper.app.exceptions.InvalidUserEmailException
 import pl.ms.saper.app.exceptions.InvalidUserException
 import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
@@ -80,6 +81,13 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
     @ExceptionHandler(InvalidUserException::class)
     fun invalidUserExceptionHandler(ex: InvalidUserException): ResponseEntity<ApiError> = error(
         suggestedAction = "Selected user does not exist, register before login",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
+
+    @ExceptionHandler(InvalidUserEmailException::class)
+    fun invalidUserEmailExceptionHandler(ex: InvalidUserEmailException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Type correct email",
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.BAD_REQUEST
     )
