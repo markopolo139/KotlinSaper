@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import pl.ms.saper.app.exceptions.InvalidPasswordException
-import pl.ms.saper.app.exceptions.InvalidUserEmailException
-import pl.ms.saper.app.exceptions.InvalidUserException
-import pl.ms.saper.app.exceptions.SendingEmailException
+import pl.ms.saper.app.exceptions.*
 import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
@@ -104,5 +101,11 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
     fun sendingEmailExceptionHandler(ex: SendingEmailException): ResponseEntity<ApiError> = error(
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.INTERNAL_SERVER_ERROR
+    )
+
+    @ExceptionHandler(InvalidTokenException::class)
+    fun invalidTokenExceptionHandler(ex: InvalidTokenException): ResponseEntity<ApiError> = error(
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
     )
 }
