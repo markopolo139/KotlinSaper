@@ -25,6 +25,6 @@ class MyUserDetails: UserDetailsService {
             .username(username)
             .password(currentUser.userPassword)
             .roles(*currentUser.rolesSet.toTypedArray())
-            .build().toCustomUser()
+            .build().toCustomUser(currentUser.userId ?: 1)
     }
 }

@@ -9,7 +9,7 @@ import pl.ms.saper.app.exceptions.InvalidPasswordException
 import pl.ms.saper.app.security.CustomUser
 import pl.ms.saper.web.models.request.RegistrationModel
 
-fun UserDetails.toCustomUser(): CustomUser = CustomUser(username, password, authorities.toMutableSet())
+fun UserDetails.toCustomUser(userId: Int): CustomUser = CustomUser(username, password, authorities.toMutableSet(), userId)
 
 fun RegistrationModel.toUserEntity(): UserEntity = UserEntity(
     null, username, password, email, null, mutableSetOf("USER")
