@@ -7,5 +7,6 @@ class CustomUser(
     username: String,
     password: String,
     roles: Set<GrantedAuthority>,
-    userId: Int
-): User(username, password, roles)
+    var userId: Int
+): User(username, password, roles) {
+}
