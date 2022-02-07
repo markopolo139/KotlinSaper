@@ -40,6 +40,12 @@ class GameServiceTest {
 
         Assertions.assertDoesNotThrow { gameService.check(Position(1,2), board) }
 
+        val spot = gameService.check(Position(1,2), board).first()
+        Assertions.assertEquals(true, spot.isChecked)
+        Assertions.assertEquals(1, spot.minesAround)
+        Assertions.assertEquals(Position(1,2), spot.position)
+
+
     }
 
 }
