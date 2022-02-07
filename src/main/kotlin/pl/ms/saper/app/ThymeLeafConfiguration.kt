@@ -1,4 +1,4 @@
-package pl.ms.saper.app.configuration
+package pl.ms.saper.app
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
