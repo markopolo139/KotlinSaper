@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import pl.ms.saper.app.exceptions.*
-import pl.ms.saper.business.exceptions.InvalidPositionException
-import pl.ms.saper.business.exceptions.InvalidSpotException
-import pl.ms.saper.business.exceptions.SpotCheckedException
+import pl.ms.saper.business.exceptions.*
 import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
@@ -129,6 +127,20 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
     @ExceptionHandler(SpotCheckedException::class)
     fun spotCheckedExceptionHandler(ex: SpotCheckedException): ResponseEntity<ApiError> = error(
         suggestedAction = "Select not checked spot",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
+
+    @ExceptionHandler(SpotFlaggedException::class)
+    fun spotFlaggedExceptionHandler(ex: SpotFlaggedException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Select not flagged spot for check",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
+
+    @ExceptionHandler(SpotMinedException::class)
+    fun spotFlaggedExceptionHandler(ex: SpotMinedException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Start new game",
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.BAD_REQUEST
     )
