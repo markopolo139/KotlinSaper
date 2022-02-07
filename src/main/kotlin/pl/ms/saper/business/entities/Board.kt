@@ -22,10 +22,7 @@ interface Board {
 
     fun validatePosition(position: Position)
 
-    fun getSpot(position: Position): Spot {
-        validatePosition(position)
-        return spotMap[position] ?: throw InvalidPositionException(position)
-    }
+    fun getSpot(position: Position): Spot
 
     fun getSpotsAround(spot: Spot): List<Spot> {
 

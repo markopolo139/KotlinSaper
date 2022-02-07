@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import pl.ms.saper.app.exceptions.*
+import pl.ms.saper.business.exceptions.InvalidPositionException
+import pl.ms.saper.business.exceptions.InvalidSpotException
+import pl.ms.saper.business.exceptions.SpotCheckedException
 import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
@@ -105,6 +108,27 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(InvalidTokenException::class)
     fun invalidTokenExceptionHandler(ex: InvalidTokenException): ResponseEntity<ApiError> = error(
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
+
+    @ExceptionHandler(InvalidPositionException::class)
+    fun invalidPositionExceptionHandler(ex: InvalidPositionException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Select valid position",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
+
+    @ExceptionHandler(InvalidSpotException::class)
+    fun invalidSpotExceptionHandler(ex: InvalidSpotException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Select valid spot",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
+
+    @ExceptionHandler(SpotCheckedException::class)
+    fun spotCheckedExceptionHandler(ex: SpotCheckedException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Select not checked spot",
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.BAD_REQUEST
     )
