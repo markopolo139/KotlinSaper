@@ -54,4 +54,7 @@ interface Board {
         spots.asSequence().forEach { spotMap[it.position] = it }
     }
 
+    override fun equals(other: Any?): Boolean
+    override fun hashCode(): Int
+
 }

@@ -6,4 +6,7 @@ interface Spot {
     var isMined: Boolean
     var isFlagged: Boolean
     var minesAround: Int
+
+    override fun equals(other: Any?): Boolean
+    override fun hashCode(): Int
 }
