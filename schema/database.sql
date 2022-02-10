@@ -36,6 +36,7 @@ CREATE TABLE boards (
 CREATE TABLE `configuration` (
     configuration_id int not null primary key auto_increment,
     board_id int not null,
+    name varchar(250) default 'custom_config',
     constraint foreign key(board_id) references boards(board_id)
 );
 
