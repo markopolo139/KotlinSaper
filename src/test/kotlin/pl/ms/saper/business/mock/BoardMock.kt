@@ -16,4 +16,12 @@ class BoardMock(override var spotMap: MutableMap<Position, Spot>) : Board {
         validatePosition(position)
         return spotMap[position] ?: SpotMock(position, isChecked = false, isMined = false, isFlagged = false, 0)
     }
+
+    override fun equals(other: Any?): Boolean {
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return 1
+    }
 }

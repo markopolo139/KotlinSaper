@@ -42,7 +42,7 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter() {
             .antMatchers("/AuthenticationTest")
             .authenticated()
             .anyRequest()
-            .hasAnyAuthority("ANONYMOUS", "USER")
+            .hasAnyRole("ANONYMOUS", "USER")
             .and()
             .httpBasic()
             .and()
