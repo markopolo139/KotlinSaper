@@ -144,4 +144,11 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.BAD_REQUEST
     )
+
+    @ExceptionHandler(SpotRevealException::class)
+    fun spotRevealExceptionHandler(ex: SpotRevealException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Select spot which has equals flagged spot around to number on spot",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
 }
