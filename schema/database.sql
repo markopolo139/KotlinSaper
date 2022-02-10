@@ -40,16 +40,10 @@ CREATE TABLE `configuration` (
 );
 
 CREATE TABLE configuration_entry (
-    configuration_entry_id int not null primary key auto_increment,
-    entry_name varchar(128) not null,
-    `value` varchar(128) not null
-);
-
-CREATE TABLE config_to_entry (
     configuration_id int not null,
-    configuration_entry_id int not null,
-    constraint foreign key(configuration_id) references `configuration`(configuration_id),
-    constraint foreign key(configuration_entry_id) references configuration_entry(configuration_entry_id)
+    entry_name varchar(128) not null,
+    `value` varchar(128) not null,
+    constraint foreign key(configuration_id) references `configuration`(configuration_id)
 );
 
 INSERT INTO app_users VALUES(1, "guest", "$2a$12$0OTUMsGYKjMRWKYq6ecHpObjEj9/9utZm6kPRGzx1yasJpSo3PO3y", "email", null);
