@@ -53,7 +53,7 @@ class GameService {
 
         val spotsAround = board.getSpotsAround(selectedSpot)
 
-        if (selectedSpot.minesAround != spotsAround.count { it.isFlagged})
+        if (selectedSpot.minesAround != spotsAround.count { it.isFlagged })
             throw SpotRevealException()
 
         return reveal(selectedSpot, board, mutableSetOf())
@@ -64,20 +64,22 @@ class GameService {
 
         val spotsAround = board.getSpotsAround(spot)
 
-        for (spot in spotsAround) {
+        for (spotIteration in spotsAround) {
 
-            if (spot.isFlagged || spot.isChecked)
+            if (spotIteration.isFlagged || spotIteration.isChecked || editedSpotList.contains(spotIteration))
                 continue
 
-            if (spot.isMined)
+            if (spotIteration.isMined)
                 throw SpotMinedException()
 
-            spot.isChecked = true
-            board.calculateMinesAround(spot)
-            editedSpotList.add(spot)
+            spotIteration.isChecked = true
+            board.calculateMinesAround(spotIteration)
+            editedSpotList.add(spotIteration)
 
-            if (spot.minesAround == 0)
-                reveal(spot, board, editedSpotList)
+            board.changeSpotsStatus(spotIteration)
+
+            if (spotIteration.minesAround == 0)
+                reveal(spotIteration, board, editedSpotList)
 
         }
 
