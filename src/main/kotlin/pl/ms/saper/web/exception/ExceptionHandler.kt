@@ -151,4 +151,11 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.BAD_REQUEST
     )
+
+    @ExceptionHandler(InvalidValueException::class)
+    fun invalidValueExceptionHandler(ex: InvalidValueException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Type valid value",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
 }
