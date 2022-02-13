@@ -8,7 +8,7 @@ import pl.ms.saper.business.values.Spot
 
 class BoardMock(override var spotMap: MutableMap<Position, Spot>) : Board {
     override fun validatePosition(position: Position) {
-        if (position.x !in 1..50 && position.y !in 1..50)
+        if (!(position.x in 1..8 && position.y in 1..8))
             throw InvalidPositionException(position)
     }
 
