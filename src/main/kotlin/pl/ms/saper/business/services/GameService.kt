@@ -38,7 +38,7 @@ class GameService {
 
         val selectedSpot = board.getSpot(position)
 
-        if (selectedSpot.isMined)
+        if (selectedSpot.isChecked)
             throw SpotCheckedException()
 
         selectedSpot.isFlagged = !selectedSpot.isFlagged
