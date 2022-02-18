@@ -11,7 +11,7 @@ class ConfigEntity(
     @Column(name = "configuration_id") val id: Int,
 
     @Embedded
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "configuration_entry", joinColumns = [ JoinColumn(name = "configuration_id") ])
     val configEntries: Set<ConfigEntryEmbeddable> = mutableSetOf()
 ) {
