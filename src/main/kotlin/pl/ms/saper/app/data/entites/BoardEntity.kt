@@ -15,7 +15,10 @@ class BoardEntity(
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
-    val spots: Set<SpotEntity>
+    val spots: Set<SpotEntity>,
+
+    @OneToOne
+    val configuration: ConfigEntity
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
