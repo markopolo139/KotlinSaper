@@ -11,8 +11,6 @@ import pl.ms.saper.business.mock.SpotMock
 import pl.ms.saper.business.services.GameService
 import pl.ms.saper.business.values.Position
 
-//TODO : test rest of game service functions
-
 @SpringBootTest(classes = [
     GameService::class
 ])
