@@ -8,7 +8,11 @@ import javax.persistence.*
 class ConfigEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "configuration_id") val id: Int,
+    @Column(name = "configuration_id")
+    val id: Int,
+
+    @Column(name = "`name`")
+    val name: String,
 
     @Embedded
     @ElementCollection(fetch = FetchType.LAZY)
