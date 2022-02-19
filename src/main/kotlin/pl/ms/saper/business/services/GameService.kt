@@ -7,7 +7,6 @@ import pl.ms.saper.business.exceptions.SpotMinedException
 import pl.ms.saper.business.exceptions.SpotRevealException
 import pl.ms.saper.business.values.Position
 import pl.ms.saper.business.values.Spot
-
 class GameService {
 
     fun check(position: Position, board: Board): Set<Spot> {
@@ -20,15 +19,12 @@ class GameService {
         if (selectedSpot.isFlagged)
             throw SpotFlaggedException()
 
-        if (selectedSpot.isMined)
-            throw SpotMinedException()
-
         selectedSpot.isChecked = true
         board.calculateMinesAround(selectedSpot)
 
         val resultSpotList = mutableSetOf(selectedSpot)
 
-        if (selectedSpot.minesAround == 0)
+        if (!selectedSpot.isMined && selectedSpot.minesAround == 0)
             reveal(selectedSpot, board, resultSpotList)
 
         return resultSpotList
@@ -69,16 +65,13 @@ class GameService {
             if (spotIteration.isFlagged || spotIteration.isChecked || editedSpotList.contains(spotIteration))
                 continue
 
-            if (spotIteration.isMined)
-                throw SpotMinedException()
-
             spotIteration.isChecked = true
             board.calculateMinesAround(spotIteration)
             editedSpotList.add(spotIteration)
 
             board.changeSpotsStatus(spotIteration)
 
-            if (spotIteration.minesAround == 0)
+            if (spotIteration.minesAround == 0 && !spotIteration.isMined)
                 reveal(spotIteration, board, editedSpotList)
 
         }

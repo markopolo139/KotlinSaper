@@ -32,7 +32,6 @@ class GameServiceTest {
 
         Assertions.assertThrows(InvalidPositionException::class.java) { gameService.check(Position(0,0), board) }
         Assertions.assertThrows(SpotCheckedException::class.java) { gameService.check(Position(2,1), board) }
-        Assertions.assertThrows(SpotMinedException::class.java) { gameService.check(Position(3,1), board) }
         Assertions.assertThrows(SpotFlaggedException::class.java) { gameService.check(Position(4,1), board) }
 
         Assertions.assertDoesNotThrow { gameService.check(Position(1,2), board) }
