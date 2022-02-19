@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "boards")
-open class BoardEntity(
+class BoardEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "board_id")

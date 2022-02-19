@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "spots")
-open class SpotEntity(
+class SpotEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "spot_id")

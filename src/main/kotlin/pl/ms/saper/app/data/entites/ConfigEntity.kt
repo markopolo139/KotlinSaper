@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "configuration")
-open class ConfigEntity(
+class ConfigEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "configuration_id")
