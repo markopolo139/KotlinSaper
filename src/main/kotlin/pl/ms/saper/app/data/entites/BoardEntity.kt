@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "boards")
-class BoardEntity(
+open class BoardEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "board_id")
@@ -15,7 +15,7 @@ class BoardEntity(
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
-    val spots: Set<SpotEntity>,
+    val spots: MutableSet<SpotEntity>,
 
     @OneToOne
     val configuration: ConfigEntity

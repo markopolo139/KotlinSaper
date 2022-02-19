@@ -4,7 +4,7 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-class PositionEmbeddable(
+open class PositionEmbeddable(
     @Column(name = "x")
     val x: Int,
 

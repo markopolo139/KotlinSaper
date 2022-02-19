@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "configuration")
-class ConfigEntity(
+open class ConfigEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "configuration_id")
@@ -17,7 +17,7 @@ class ConfigEntity(
     @Embedded
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "configuration_entry", joinColumns = [ JoinColumn(name = "configuration_id") ])
-    val configEntries: Set<ConfigEntryEmbeddable> = mutableSetOf()
+    val configEntries: MutableSet<ConfigEntryEmbeddable> = mutableSetOf()
 ) {
 
     override fun equals(other: Any?): Boolean {

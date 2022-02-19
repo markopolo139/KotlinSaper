@@ -4,7 +4,7 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-class ConfigEntryEmbeddable(
+open class ConfigEntryEmbeddable(
     @Column(name = "entry_name") val entryName: String,
     @Column(name = "`value`") var value: String
 ) {

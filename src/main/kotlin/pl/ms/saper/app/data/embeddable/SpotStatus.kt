@@ -4,7 +4,7 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-class SpotStatus(
+open class SpotStatus(
     @Column(name = "isMined")
     val isMined: Boolean,
 
