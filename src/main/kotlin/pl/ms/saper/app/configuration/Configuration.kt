@@ -4,19 +4,23 @@ import pl.ms.saper.app.exceptions.InvalidValueException
 
 interface Configuration {
 
-    var configName: String
+    fun setConfigName(newName: String)
 
-    fun saveValue(boardId: Int, configKey: ConfigKey, value: String)
+    fun defaultConfigName()
 
-    fun getValue(boardId: Int, configKey: ConfigKey)
+    fun getConfigName(): String
 
-    fun deleteValue(boardId: Int, configKey: ConfigKey)
+    fun saveValue(configKey: ConfigKey, value: String)
 
-    fun getEntry(boardId: Int, configKey: ConfigKey)
+    fun getValue(configKey: ConfigKey): String
 
-    fun getEntries(boardId: Int)
+    fun deleteValue(configKey: ConfigKey)
 
-    private fun fieldValidation(width: Int, height: Int, mines: Int, configKey: ConfigKey) {
+    fun getEntry(configKey: ConfigKey): ConfigEntry
+
+    fun getEntries()
+
+    fun fieldValidation(width: Int, height: Int, mines: Int, configKey: ConfigKey) {
         if (width * height <= mines)
             throw InvalidValueException(configKey.configName)
     }

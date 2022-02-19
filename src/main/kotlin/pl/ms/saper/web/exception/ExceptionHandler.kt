@@ -158,4 +158,11 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.BAD_REQUEST
     )
+
+    @ExceptionHandler(ConfigNotFoundException::class)
+    fun configNotFoundExceptionHandler(ex: ConfigNotFoundException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Create new game",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
 }
