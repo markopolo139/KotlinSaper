@@ -18,7 +18,7 @@ interface Configuration {
 
     fun getEntry(configKey: ConfigKey): ConfigEntry
 
-    fun getEntries()
+    fun getEntries(): Set<ConfigEntry>
 
     fun fieldValidation(width: Int, height: Int, mines: Int, configKey: ConfigKey) {
         if (width * height <= mines)

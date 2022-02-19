@@ -12,7 +12,7 @@ class ConfigEntity(
     val id: Int,
 
     @Column(name = "`name`")
-    val name: String,
+    var name: String,
 
     @Embedded
     @ElementCollection(fetch = FetchType.LAZY)
