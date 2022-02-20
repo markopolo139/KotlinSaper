@@ -21,8 +21,10 @@ class Board(
     private lateinit var configuration: Configuration
 
     override fun validatePosition(position: Position) {
-        if (position.x in 1..configuration.getValue(ConfigKeyImpl.WIDTH).toInt()
-            && position.y in 1..configuration.getValue(ConfigKeyImpl.HEIGHT).toInt())
+        if (
+            !(position.x in 1..configuration.getValue(ConfigKeyImpl.WIDTH).toInt()
+                    && position.y in 1..configuration.getValue(ConfigKeyImpl.HEIGHT).toInt())
+        )
             throw InvalidPositionException(position)
     }
 
