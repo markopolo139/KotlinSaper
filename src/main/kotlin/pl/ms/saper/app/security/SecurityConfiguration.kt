@@ -24,9 +24,6 @@ import pl.ms.saper.web.security.JwtFilter
 class SecurityConfiguration(): WebSecurityConfigurerAdapter() {
 
     @Autowired
-    private lateinit var myUserDetails: MyUserDetails
-
-    @Autowired
     private lateinit var userRepository: UserRepository
 
     override fun configure(http: HttpSecurity?) {
@@ -58,14 +55,6 @@ class SecurityConfiguration(): WebSecurityConfigurerAdapter() {
             .deleteCookies("JSESSIONID")
     }
 
-    @Bean
-    @Scope("singleton")
-    fun getAuthenticationProvider(): DaoAuthenticationProvider {
-        val daoAuthenticationProvider = DaoAuthenticationProvider()
-        daoAuthenticationProvider.setUserDetailsService(myUserDetails)
-        daoAuthenticationProvider.setPasswordEncoder(getPasswordEncoder())
-        return daoAuthenticationProvider
-    }
 
     @Bean
     @Scope("singleton")
