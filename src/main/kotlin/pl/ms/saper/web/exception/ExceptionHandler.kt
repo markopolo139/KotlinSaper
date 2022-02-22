@@ -165,4 +165,11 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.BAD_REQUEST
     )
+
+    @ExceptionHandler(BoardNotFoundException::class)
+    fun boardNotFoundExceptionHandler(ex: BoardNotFoundException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Create new user",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.INTERNAL_SERVER_ERROR
+    )
 }

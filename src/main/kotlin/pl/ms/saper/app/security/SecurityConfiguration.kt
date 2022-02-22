@@ -14,18 +14,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import pl.ms.saper.app.data.repositories.UserRepository
 import pl.ms.saper.app.security.MyUserDetails
+import pl.ms.saper.web.security.JwtFilter
 
 //TODO : check anonymous and authentication (in future change to jwt (to learn this))
 @EnableWebSecurity
-class SecurityConfiguration: WebSecurityConfigurerAdapter() {
+class SecurityConfiguration(): WebSecurityConfigurerAdapter() {
 
     @Autowired
     private lateinit var myUserDetails: MyUserDetails
 
-    override fun configure(auth: AuthenticationManagerBuilder?) {
-        auth?.userDetailsService(myUserDetails)
-    }
+    @Autowired
+    private lateinit var userRepository: UserRepository
 
     override fun configure(http: HttpSecurity?) {
         if (http == null) return
@@ -43,9 +45,11 @@ class SecurityConfiguration: WebSecurityConfigurerAdapter() {
             .authenticated()
             .anyRequest()
             .hasAnyRole("ANONYMOUS", "USER")
-            .and()
-            .httpBasic()
-            .and()
+
+        http.addFilterBefore(
+                JwtFilter(userRepository),
+                UsernamePasswordAuthenticationFilter::class.java
+            )
             .formLogin()
             .loginProcessingUrl("/login")
             .successForwardUrl("/game")
