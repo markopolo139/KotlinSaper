@@ -4,6 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import pl.ms.saper.app.configuration.ConfigKeyImpl
 import pl.ms.saper.app.configuration.Configuration
+import pl.ms.saper.app.converters.toBusiness
 import pl.ms.saper.app.converters.toModelList
 import pl.ms.saper.app.data.repositories.BoardRepository
 import pl.ms.saper.app.entities.GameConfiguration
@@ -26,12 +27,18 @@ class GameStatusService {
 
     val isWin: Boolean
         get() {
-            return false
+            val userBoard = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }.toBusiness()
+            val width = configuration.getValue(ConfigKeyImpl.WIDTH).toInt()
+            val height = configuration.getValue(ConfigKeyImpl.HEIGHT).toInt()
+            val mines = configuration.getValue(ConfigKeyImpl.MINES).toInt()
+            return (userBoard.minesLeft == 0 && userBoard.allSpots == width * height)
+                    || (!isLose && userBoard.spotChecked == width * height - mines)
         }
 
     val isLose: Boolean
         get() {
-            return false
+            val userBoard = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }
+            return userBoard.spots.any { it.spotStatus.isMined && it.spotStatus.isChecked }
         }
 
     fun getAllSpots(): List<SpotModel> {
