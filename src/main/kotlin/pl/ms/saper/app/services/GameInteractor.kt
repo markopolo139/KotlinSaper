@@ -25,7 +25,7 @@ class GameInteractor {
     @Autowired
     private lateinit var spotRepository: SpotRepository
 
-    val userId: Int
+    private val userId: Int
         get() = (SecurityContextHolder.getContext().authentication.principal as CustomUser).userId
 
     fun checkSpot(position: Position) {

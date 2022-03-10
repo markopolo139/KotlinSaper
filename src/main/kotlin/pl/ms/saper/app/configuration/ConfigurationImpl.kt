@@ -2,12 +2,14 @@ package pl.ms.saper.app.configuration
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.stereotype.Component
 import pl.ms.saper.app.converters.toEntity
 import pl.ms.saper.app.data.embeddable.ConfigEntryEmbeddable
 import pl.ms.saper.app.data.repositories.ConfigRepository
 import pl.ms.saper.app.exceptions.ConfigNotFoundException
 import pl.ms.saper.app.security.CustomUser
 
+@Component
 class ConfigurationImpl: Configuration {
 
     companion object {
