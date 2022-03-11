@@ -51,6 +51,8 @@ class GameStartService {
         val newBoard = boardRepository.findByUser_UserId(userId).orElse(
             BoardEntity(0, userRepository.getById(userId), mutableSetOf(), ConfigEntity(0, "Default"))
         )
+
+        spotRepository.deleteAllSpotsByBoardId(newBoard.id)
         newBoard.spots.clear()
 
         generateMines(newBoard, position)
