@@ -1,6 +1,13 @@
 package pl.ms.saper.app.data.repositories
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 import pl.ms.saper.app.data.entites.SpotEntity
 
-interface SpotRepository: JpaRepository<SpotEntity, Int>
+interface SpotRepository: JpaRepository<SpotEntity, Int> {
+
+    @Query("Select * from spots where x = :x and y = :y and board_id = :boardId", nativeQuery = true)
+    fun findByPosition(@Param("boardId") boardId: Int, @Param("x") x: Int, @Param("y") y: Int)
+
+}

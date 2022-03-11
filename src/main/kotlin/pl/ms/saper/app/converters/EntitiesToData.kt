@@ -15,12 +15,16 @@ fun ConfigEntryEmbeddable.toEntity() = ConfigEntryImpl(ConfigKeyImpl.valueOf(ent
 fun ConfigEntryImpl.toData() = ConfigEntryEmbeddable(key.configName, value)
 
 fun SpotEntity.toBusiness() =
-    Spot(id, Position(position.x, position.y), spotStatus.isChecked, spotStatus.isMined, spotStatus.isFlagged, minesAround)
+    Spot(id, position.toBusiness(), spotStatus.isChecked, spotStatus.isMined, spotStatus.isFlagged, minesAround)
 fun Spot.toData() =
-    SpotEntity(spotId, PositionEmbeddable(position.x, position.y), SpotStatus(isMined, isChecked, isFlagged), minesAround)
+    SpotEntity(spotId, position.toData(), SpotStatus(isMined, isChecked, isFlagged), minesAround)
 
 fun BoardEntity.toBusiness() = Board(
-    id, user, spots.asSequence().map { Position(it.position.x, it.position.y) to it.toBusiness() }.toMap().toMutableMap(), configuration
+    id, user, spots.asSequence().map { it.position.toBusiness() to it.toBusiness() }.toMap().toMutableMap(), configuration
 )
 fun Board.toData() =
     BoardEntity(boardId, userEntity, spotMap.values.asSequence().map { (it as Spot).toData() }.toMutableSet(), configEntity)
+
+fun PositionEmbeddable.toBusiness() = Position(x, y)
+
+fun Position.toData() = PositionEmbeddable(x, y)
