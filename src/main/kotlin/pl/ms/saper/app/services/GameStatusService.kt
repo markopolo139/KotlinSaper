@@ -1,5 +1,6 @@
 package pl.ms.saper.app.services
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import pl.ms.saper.app.configuration.ConfigKeyImpl
@@ -13,13 +14,16 @@ import pl.ms.saper.app.exceptions.BoardNotFoundException
 import pl.ms.saper.app.security.CustomUser
 import pl.ms.saper.web.models.request.SpotModel
 
-//TODO: getGameConfiguration(height, mines, width)
-
 @Service
 class GameStatusService {
 
+    @Autowired
     private lateinit var configuration: Configuration
+
+    @Autowired
     private lateinit var boardRepository: BoardRepository
+
+    @Autowired
     private lateinit var spotRepository: BoardRepository
 
     private val userId
