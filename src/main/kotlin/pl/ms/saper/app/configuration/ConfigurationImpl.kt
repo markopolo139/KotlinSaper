@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import pl.ms.saper.app.converters.toEntity
 import pl.ms.saper.app.data.embeddable.ConfigEntryEmbeddable
+import pl.ms.saper.app.data.entites.ConfigEntity
 import pl.ms.saper.app.data.repositories.ConfigRepository
 import pl.ms.saper.app.exceptions.ConfigNotFoundException
 import pl.ms.saper.app.security.CustomUser
@@ -72,7 +73,9 @@ class ConfigurationImpl: Configuration {
     }
 
     private fun getCurrentConfigurationEntity() =
-        configRepository.findByUserId(currentUserId).orElseThrow { throw ConfigNotFoundException(currentUserId) }
+        configRepository.findByUserId(currentUserId).orElseGet {
+            ConfigEntity(0, DEFAULT_CONFIG_NAME)
+        }
 
     private fun validateSaveValue(saveValue: String, configKey: ConfigKey) {
 
@@ -83,12 +86,12 @@ class ConfigurationImpl: Configuration {
         else {
             if (configKey.configName == ConfigKeyImpl.MINES.configName)
                 fieldValidation(
-                    getValue(ConfigKeyImpl.WIDTH).toInt(), saveValue.toInt(), getValue(ConfigKeyImpl.MINES).toInt(), configKey
+                    getValue(ConfigKeyImpl.WIDTH).toInt(), getValue(ConfigKeyImpl.HEIGHT).toInt(), saveValue.toInt(), configKey
                 )
             else
                 if (configKey.configName == ConfigKeyImpl.WIDTH.configName)
                     fieldValidation(
-                        getValue(ConfigKeyImpl.WIDTH).toInt(), saveValue.toInt(), getValue(ConfigKeyImpl.MINES).toInt(), configKey
+                        saveValue.toInt(), getValue(ConfigKeyImpl.HEIGHT).toInt(), getValue(ConfigKeyImpl.MINES).toInt(), configKey
                     )
         }
 
