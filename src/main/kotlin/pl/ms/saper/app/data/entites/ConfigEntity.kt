@@ -17,7 +17,11 @@ class ConfigEntity(
     @Embedded
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "configuration_entry", joinColumns = [ JoinColumn(name = "configuration_id") ])
-    val configEntries: MutableSet<ConfigEntryEmbeddable> = mutableSetOf()
+    val configEntries: MutableSet<ConfigEntryEmbeddable> = mutableSetOf(),
+
+    @OneToOne
+    @JoinColumn(name = "board_id", referencedColumnName = "board_id")
+    var boardEntity: BoardEntity?
 ) {
 
     override fun equals(other: Any?): Boolean {

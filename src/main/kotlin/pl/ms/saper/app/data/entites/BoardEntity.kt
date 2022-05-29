@@ -17,8 +17,7 @@ class BoardEntity(
     @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val spots: MutableSet<SpotEntity>,
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "board_id", referencedColumnName = "board_id")
+    @OneToOne(mappedBy = "boardEntity", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var configuration: ConfigEntity?
 ) {
     override fun equals(other: Any?): Boolean {

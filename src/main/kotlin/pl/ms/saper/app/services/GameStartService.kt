@@ -53,16 +53,13 @@ class GameStartService {
     fun createGame(position: Position) {
 
         var newBoard = boardRepository.findByUser_UserId(userId).orElse(
-            BoardEntity(0, userRepository.getById(userId), mutableSetOf(), ConfigEntity(0, "Default"))
+            BoardEntity(0, userRepository.getById(userId), mutableSetOf(), ConfigEntity(0, "Default", boardEntity = null))
         )
-
-        val configurationToSave = newBoard.configuration
-        newBoard.configuration = null
 
         spotRepository.deleteAllSpotsByBoardId(newBoard.id)
         newBoard.spots.clear()
+        newBoard.configuration?.boardEntity = newBoard
         newBoard = boardRepository.save(newBoard)
-        newBoard.configuration = configurationToSave
 
         generateMines(newBoard, position)
 

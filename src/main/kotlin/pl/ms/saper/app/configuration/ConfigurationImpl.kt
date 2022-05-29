@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component
 import pl.ms.saper.app.converters.toEntity
 import pl.ms.saper.app.data.embeddable.ConfigEntryEmbeddable
 import pl.ms.saper.app.data.entites.ConfigEntity
+import pl.ms.saper.app.data.repositories.BoardRepository
 import pl.ms.saper.app.data.repositories.ConfigRepository
 import pl.ms.saper.app.exceptions.ConfigNotFoundException
 import pl.ms.saper.app.security.CustomUser
@@ -19,6 +20,9 @@ class ConfigurationImpl: Configuration {
 
     @Autowired
     private lateinit var configRepository: ConfigRepository
+
+    @Autowired
+    private lateinit var boardRepository: BoardRepository
 
     private val currentUserId: Int
         get() = (SecurityContextHolder.getContext().authentication.principal as CustomUser).userId
@@ -74,7 +78,7 @@ class ConfigurationImpl: Configuration {
 
     private fun getCurrentConfigurationEntity() =
         configRepository.findByUserId(currentUserId).orElseGet {
-            ConfigEntity(0, DEFAULT_CONFIG_NAME)
+            ConfigEntity(0, DEFAULT_CONFIG_NAME, boardEntity = null )
         }
 
     private fun validateSaveValue(saveValue: String, configKey: ConfigKey) {

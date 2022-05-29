@@ -27,7 +27,7 @@ fun SpotEntity.toBusiness() =
     Spot(id, position.toBusiness(), spotStatus.isChecked, spotStatus.isMined, spotStatus.isFlagged, minesAround, boardEntity.id)
 
 fun BoardEntity.toBusiness(config: Configuration) = Board(
-    id, user, spots.asSequence().map { it.position.toBusiness() to it.toBusiness() }.toMap().toMutableMap(), configuration ?: ConfigEntity(0, "Default"), config
+    id, user, spots.asSequence().map { it.position.toBusiness() to it.toBusiness() }.toMap().toMutableMap(), configuration ?: ConfigEntity(0, "Default", boardEntity = this), config
 )
 
 fun PositionEmbeddable.toBusiness() = Position(x, y)
