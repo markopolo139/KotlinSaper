@@ -21,9 +21,9 @@ CREATE TABLE spots (
     board_id int not null,
     x int not null,
     y int not null,
-    isMined boolean not null default 0,
-    isChecked boolean not null default 0,
-    isFlagged boolean not null default 0,
+    mined boolean not null default 0,
+    checked boolean not null default 0,
+    flagged boolean not null default 0,
     mines_around int not null
 );
 
