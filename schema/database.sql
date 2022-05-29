@@ -33,7 +33,7 @@ CREATE TABLE boards (
     constraint foreign key(user_id) references app_users(user_id)
 );
 
-CREATE TABLE `configuration` (
+CREATE TABLE board_configuration (
     configuration_id int not null primary key auto_increment,
     board_id int not null,
     name varchar(250) default 'custom_config',
@@ -44,7 +44,7 @@ CREATE TABLE configuration_entry (
     configuration_id int not null,
     entry_name varchar(128) not null,
     `value` varchar(128) not null,
-    constraint foreign key(configuration_id) references `configuration`(configuration_id)
+    constraint foreign key(configuration_id) references board_configuration(configuration_id)
 );
 
 INSERT INTO app_users VALUES(1, "guest", "$2a$12$0OTUMsGYKjMRWKYq6ecHpObjEj9/9utZm6kPRGzx1yasJpSo3PO3y", "email", null);

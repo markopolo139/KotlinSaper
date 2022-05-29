@@ -11,13 +11,15 @@ class BoardEntity(
     val id: Int,
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     val user: UserEntity,
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     val spots: MutableSet<SpotEntity>,
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id", referencedColumnName = "board_id")
     val configuration: ConfigEntity
 ) {
     override fun equals(other: Any?): Boolean {

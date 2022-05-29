@@ -4,7 +4,7 @@ import pl.ms.saper.app.data.embeddable.ConfigEntryEmbeddable
 import javax.persistence.*
 
 @Entity
-@Table(name = "configuration")
+@Table(name = "board_configuration")
 class ConfigEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
