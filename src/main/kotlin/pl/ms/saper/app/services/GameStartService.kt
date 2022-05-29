@@ -61,7 +61,7 @@ class GameStartService {
 
     }
 
-    fun generateMines(board: BoardEntity, position: Position) {
+    private fun generateMines(board: BoardEntity, position: Position) {
 
         val height = configuration.getValue(ConfigKeyImpl.HEIGHT).toInt()
         val width = configuration.getValue(ConfigKeyImpl.WIDTH).toInt()
