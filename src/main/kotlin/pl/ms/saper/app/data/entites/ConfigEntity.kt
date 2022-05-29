@@ -14,6 +14,9 @@ class ConfigEntity(
     @Column(name = "`name`")
     var name: String,
 
+    @Column(name = "board_id")
+    var boardId: Int = 0,
+
     @Embedded
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "configuration_entry", joinColumns = [ JoinColumn(name = "configuration_id") ])

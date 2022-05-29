@@ -18,8 +18,8 @@ class BoardEntity(
     @JoinColumn(name = "board_id")
     val spots: MutableSet<SpotEntity>,
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id", referencedColumnName = "board_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @JoinColumn(name = "board_id")
     val configuration: ConfigEntity
 ) {
     override fun equals(other: Any?): Boolean {

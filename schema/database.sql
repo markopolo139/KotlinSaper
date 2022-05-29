@@ -18,7 +18,7 @@ CREATE TABLE user_roles (
 
 CREATE TABLE spots (
     spot_id int not null primary key auto_increment,
-    board_id int not null,
+    board_id int not null default 0,
     x int not null,
     y int not null,
     mined boolean not null default 0,
@@ -35,7 +35,7 @@ CREATE TABLE boards (
 
 CREATE TABLE board_configuration (
     configuration_id int not null primary key auto_increment,
-    board_id int not null,
+    board_id int not null default 0,
     name varchar(250) default 'custom_config',
     constraint foreign key(board_id) references boards(board_id)
 );

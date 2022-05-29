@@ -5,13 +5,13 @@ import javax.persistence.Embeddable
 
 @Embeddable
 class SpotStatus(
-    @Column(name = "isMined")
+    @Column(name = "mined")
     val isMined: Boolean,
 
-    @Column(name = "isChecked")
+    @Column(name = "checked")
     val isChecked: Boolean,
 
-    @Column(name = "isFlagged")
+    @Column(name = "flagged")
     val isFlagged: Boolean
 ) {
     override fun equals(other: Any?): Boolean {
