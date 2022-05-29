@@ -10,7 +10,7 @@ import java.util.*
 interface ConfigRepository: JpaRepository<ConfigEntity, Int> {
 
     @Query(
-        value = "select * from configuration where board_id = (select board_id from boards where user_id = :userId",
+        value = "select * from board_configuration where board_id = (select board_id from boards where user_id = :userId)",
         nativeQuery = true
     )
     fun findByUserId(@Param(value = "userId") userId: Int): Optional<ConfigEntity>
