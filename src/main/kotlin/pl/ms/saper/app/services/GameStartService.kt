@@ -85,7 +85,7 @@ class GameStartService {
             if (randomPosition == position || board.spots.any { it.position == randomPosition.toData() })
                 continue
 
-            val newSpot = SpotEntity(0, position.toData(), SpotStatus(true, isChecked = false, isFlagged = false), 0)
+            val newSpot = SpotEntity(0, randomPosition.toData(), SpotStatus(true, isChecked = false, isFlagged = false), 0, board)
             board.spots.add(newSpot)
 
             mines--

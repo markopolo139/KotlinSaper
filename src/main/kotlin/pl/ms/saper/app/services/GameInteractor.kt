@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service
 import pl.ms.saper.app.configuration.Configuration
 import pl.ms.saper.app.converters.toBusiness
 import pl.ms.saper.app.converters.toData
+import pl.ms.saper.app.data.embeddable.SpotStatus
+import pl.ms.saper.app.data.entites.BoardEntity
+import pl.ms.saper.app.data.entites.SpotEntity
 import pl.ms.saper.app.data.repositories.BoardRepository
 import pl.ms.saper.app.data.repositories.SpotRepository
 import pl.ms.saper.app.entities.Board
@@ -59,5 +62,10 @@ class GameInteractor {
         //boardRepository.save(boardEntity)
     }
 
+    fun Spot.toData() =
+        SpotEntity(spotId, position.toData(), SpotStatus(isMined, isChecked, isFlagged), minesAround, boardRepository.getById(boardId))
+
+    fun Board.toData() =
+        BoardEntity(boardId, userEntity, spotMap.values.asSequence().map { (it as Spot).toData() }.toMutableSet(), configEntity)
 
 }
