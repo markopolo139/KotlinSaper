@@ -9,7 +9,8 @@ class Spot(
     override var isChecked: Boolean,
     override var isMined: Boolean,
     override var isFlagged: Boolean,
-    override var minesAround: Int
+    override var minesAround: Int,
+    val boardId: Int
 ) : Spot {
 
     override fun equals(other: Any?): Boolean {

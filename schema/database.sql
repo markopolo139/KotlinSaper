@@ -16,6 +16,12 @@ CREATE TABLE user_roles (
     constraint foreign key(user_id) references app_users(user_id)
 );
 
+CREATE TABLE boards (
+    board_id int not null primary key auto_increment,
+    user_id int not null,
+    constraint foreign key(user_id) references app_users(user_id)
+);
+
 CREATE TABLE spots (
     spot_id int not null primary key auto_increment,
     board_id int not null,
@@ -24,18 +30,13 @@ CREATE TABLE spots (
     mined boolean not null default 0,
     checked boolean not null default 0,
     flagged boolean not null default 0,
-    mines_around int not null
-);
-
-CREATE TABLE boards (
-    board_id int not null primary key auto_increment,
-    user_id int not null,
-    constraint foreign key(user_id) references app_users(user_id)
+    mines_around int not null,
+    constraint foreign key(board_id) references boards(board_id)
 );
 
 CREATE TABLE board_configuration (
     configuration_id int not null primary key auto_increment,
-    board_id int not null default 0,
+    board_id int not null,
     name varchar(250) default 'custom_config',
     constraint foreign key(board_id) references boards(board_id)
 );

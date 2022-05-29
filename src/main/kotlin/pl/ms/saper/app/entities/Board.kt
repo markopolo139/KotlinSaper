@@ -33,7 +33,7 @@ class Board(
         validatePosition(position)
 
         return spotMap[position]
-            ?: Spot(0, position, isChecked = false, isMined = false, isFlagged = false, 0)
+            ?: Spot(0, position, isChecked = false, isMined = false, isFlagged = false, 0, boardId)
     }
 
     override fun equals(other: Any?): Boolean {

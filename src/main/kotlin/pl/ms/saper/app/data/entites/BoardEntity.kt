@@ -14,12 +14,11 @@ class BoardEntity(
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     val user: UserEntity,
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val spots: MutableSet<SpotEntity>,
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name = "board_id", referencedColumnName = "board_id")
     var configuration: ConfigEntity?
 ) {
     override fun equals(other: Any?): Boolean {
