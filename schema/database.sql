@@ -49,3 +49,6 @@ CREATE TABLE configuration_entry (
 
 INSERT INTO app_users VALUES(1, "guest", "$2a$12$0OTUMsGYKjMRWKYq6ecHpObjEj9/9utZm6kPRGzx1yasJpSo3PO3y", "email", null);
 INSERT INTO user_roles VALUES(1, "ANONYMOUS");
+
+INSERT INTO app_users VALUES(2, "admin", "$2a$12$6WGDczQT9Ii93OuKd4M8SOq8ckAKC5il2t/SvhTLuY1je9jyxB4Zq", "admin@onet.pl", null);
+INSERT INTO user_roles VALUES(2, "ADMIN");
