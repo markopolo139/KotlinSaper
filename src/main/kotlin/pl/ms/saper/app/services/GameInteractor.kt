@@ -3,6 +3,7 @@ package pl.ms.saper.app.services
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
+import pl.ms.saper.app.configuration.Configuration
 import pl.ms.saper.app.converters.toBusiness
 import pl.ms.saper.app.converters.toData
 import pl.ms.saper.app.data.repositories.BoardRepository
@@ -25,11 +26,14 @@ class GameInteractor {
     @Autowired
     private lateinit var spotRepository: SpotRepository
 
+    @Autowired
+    private lateinit var configuration: Configuration
+
     private val userId: Int
         get() = (SecurityContextHolder.getContext().authentication.principal as CustomUser).userId
 
     fun checkSpot(position: Position) {
-        val board = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }.toBusiness()
+        val board = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }.toBusiness(configuration)
         val editedSpots = gameService.check(position, board).map { (it as Spot).toData() }
         val boardEntity = board.toData()
         boardEntity.spots.addAll(editedSpots)
@@ -38,7 +42,7 @@ class GameInteractor {
     }
 
     fun flagSpot(position: Position) {
-        val board = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }.toBusiness()
+        val board = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }.toBusiness(configuration)
         val editedSpot = ( gameService.flag(position, board) as Spot ).toData()
         val boardEntity = board.toData()
         boardEntity.spots.add(editedSpot)
@@ -47,7 +51,7 @@ class GameInteractor {
     }
 
     fun revealClickedSpot(position: Position) {
-        val board = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }.toBusiness()
+        val board = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }.toBusiness(configuration)
         val editedSpots = gameService.revealOnClicked(position, board).map { (it as Spot).toData() }
         val boardEntity = board.toData()
         boardEntity.spots.addAll(editedSpots)

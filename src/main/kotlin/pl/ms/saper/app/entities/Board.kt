@@ -1,24 +1,25 @@
 package pl.ms.saper.app.entities
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
 import pl.ms.saper.app.configuration.ConfigKeyImpl
 import pl.ms.saper.app.configuration.Configuration
+import pl.ms.saper.app.configuration.ConfigurationImpl
 import pl.ms.saper.app.data.entites.ConfigEntity
 import pl.ms.saper.app.data.entites.UserEntity
 import pl.ms.saper.business.entities.Board
 import pl.ms.saper.business.exceptions.InvalidPositionException
 import pl.ms.saper.business.values.Position
 import pl.ms.saper.business.values.Spot
+import javax.annotation.PostConstruct
 
 class Board(
     val boardId: Int,
     val userEntity: UserEntity,
     override var spotMap: MutableMap<Position, Spot>,
-    val configEntity: ConfigEntity
+    val configEntity: ConfigEntity,
+    val configuration: Configuration
 ) : Board {
-
-    @Autowired
-    private lateinit var configuration: Configuration
 
     override fun validatePosition(position: Position) {
         if (

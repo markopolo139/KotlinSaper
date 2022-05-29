@@ -12,6 +12,7 @@ import pl.ms.saper.app.data.entites.BoardEntity
 import pl.ms.saper.app.data.entites.ConfigEntity
 import pl.ms.saper.app.data.entites.SpotEntity
 import pl.ms.saper.app.data.repositories.BoardRepository
+import pl.ms.saper.app.data.repositories.ConfigRepository
 import pl.ms.saper.app.data.repositories.SpotRepository
 import pl.ms.saper.app.data.repositories.UserRepository
 import pl.ms.saper.app.security.CustomUser
@@ -36,6 +37,9 @@ class GameStartService {
     @Autowired
     private lateinit var gameInteractor: GameInteractor
 
+    @Autowired
+    private lateinit var configRepository: ConfigRepository
+
     companion object {
         private const val RANDOM_SEED = 11122233
     }
@@ -48,12 +52,17 @@ class GameStartService {
 
     fun createGame(position: Position) {
 
-        val newBoard = boardRepository.findByUser_UserId(userId).orElse(
+        var newBoard = boardRepository.findByUser_UserId(userId).orElse(
             BoardEntity(0, userRepository.getById(userId), mutableSetOf(), ConfigEntity(0, "Default"))
         )
 
+        val configurationToSave = newBoard.configuration
+        newBoard.configuration = null
+
         spotRepository.deleteAllSpotsByBoardId(newBoard.id)
         newBoard.spots.clear()
+        newBoard = boardRepository.save(newBoard)
+        newBoard.configuration = configurationToSave
 
         generateMines(newBoard, position)
 
@@ -76,7 +85,7 @@ class GameStartService {
             if (randomPosition == position || board.spots.any { it.position == randomPosition.toData() })
                 continue
 
-            val newSpot = SpotEntity(0, position.toData(), SpotStatus(true, false, false), 0)
+            val newSpot = SpotEntity(0, position.toData(), SpotStatus(true, isChecked = false, isFlagged = false), 0)
             board.spots.add(newSpot)
 
             mines--

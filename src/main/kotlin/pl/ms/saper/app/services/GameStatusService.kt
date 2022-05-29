@@ -31,7 +31,7 @@ class GameStatusService {
 
     val isWin: Boolean
         get() {
-            val userBoard = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }.toBusiness()
+            val userBoard = boardRepository.findByUser_UserId(userId).orElseThrow { throw BoardNotFoundException() }.toBusiness(configuration)
             val width = configuration.getValue(ConfigKeyImpl.WIDTH).toInt()
             val height = configuration.getValue(ConfigKeyImpl.HEIGHT).toInt()
             val mines = configuration.getValue(ConfigKeyImpl.MINES).toInt()
