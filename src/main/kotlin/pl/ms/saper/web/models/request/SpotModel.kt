@@ -2,11 +2,11 @@ package pl.ms.saper.web.models.request
 
 import org.hibernate.validator.constraints.Length
 import pl.ms.saper.business.values.Position
+import javax.validation.Valid
 import javax.validation.constraints.*
 
 class SpotModel(
-    @Min(1) val position_x: Int,
-    @Min(1) val position_y: Int,
+    @Valid var positionModel: PositionModel,
     @NotNull var isChecked: Boolean,
     @NotNull var isMined: Boolean,
     @NotNull var isFlagged: Boolean,
