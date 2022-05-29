@@ -18,7 +18,7 @@ CREATE TABLE user_roles (
 
 CREATE TABLE spots (
     spot_id int not null primary key auto_increment,
-    board_id int not null default 0,
+    board_id int not null,
     x int not null,
     y int not null,
     mined boolean not null default 0,

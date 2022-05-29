@@ -20,7 +20,7 @@ class BoardEntity(
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "board_id")
-    val configuration: ConfigEntity
+    var configuration: ConfigEntity?
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

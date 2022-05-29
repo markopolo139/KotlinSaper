@@ -6,6 +6,7 @@ import pl.ms.saper.app.data.embeddable.ConfigEntryEmbeddable
 import pl.ms.saper.app.data.embeddable.PositionEmbeddable
 import pl.ms.saper.app.data.embeddable.SpotStatus
 import pl.ms.saper.app.data.entites.BoardEntity
+import pl.ms.saper.app.data.entites.ConfigEntity
 import pl.ms.saper.app.data.entites.SpotEntity
 import pl.ms.saper.app.entities.Board
 import pl.ms.saper.app.entities.Spot
@@ -20,7 +21,7 @@ fun Spot.toData() =
     SpotEntity(spotId, position.toData(), SpotStatus(isMined, isChecked, isFlagged), minesAround)
 
 fun BoardEntity.toBusiness() = Board(
-    id, user, spots.asSequence().map { it.position.toBusiness() to it.toBusiness() }.toMap().toMutableMap(), configuration
+    id, user, spots.asSequence().map { it.position.toBusiness() to it.toBusiness() }.toMap().toMutableMap(), configuration ?: ConfigEntity(0, "Default")
 )
 fun Board.toData() =
     BoardEntity(boardId, userEntity, spotMap.values.asSequence().map { (it as Spot).toData() }.toMutableSet(), configEntity)
