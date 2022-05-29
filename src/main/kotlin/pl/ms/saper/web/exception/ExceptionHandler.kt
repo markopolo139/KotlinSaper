@@ -84,6 +84,13 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
         httpStatus = HttpStatus.BAD_REQUEST
     )
 
+    @ExceptionHandler(UsernameNotFoundException::class)
+    fun invalidUserExceptionHandler(ex: UsernameNotFoundException): ResponseEntity<ApiError> = error(
+        suggestedAction = "Selected user does not exist, register before login",
+        errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
+        httpStatus = HttpStatus.BAD_REQUEST
+    )
+
     @ExceptionHandler(InvalidUserEmailException::class)
     fun invalidUserEmailExceptionHandler(ex: InvalidUserEmailException): ResponseEntity<ApiError> = error(
         suggestedAction = "Type correct email",

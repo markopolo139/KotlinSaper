@@ -1,26 +1,27 @@
 package pl.ms.saper.web.security
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import pl.ms.saper.app.data.repositories.UserRepository
-import pl.ms.saper.app.security.CustomUser
+import pl.ms.saper.app.exceptions.InvalidUserException
 import pl.ms.saper.app.utils.toCustomUser
 import java.util.*
-import java.util.List
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class JwtFilter(private val userRepository: UserRepository): OncePerRequestFilter() {
+class JwtFilter(
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder
+    ): OncePerRequestFilter() {
 
 
     override fun doFilterInternal(
@@ -40,26 +41,30 @@ class JwtFilter(private val userRepository: UserRepository): OncePerRequestFilte
             return;
         }
 
-        val username = String(Base64.getDecoder().decode(encoded)).split(":")[0]
+        val splitUser = String(Base64.getDecoder().decode(encoded)).split(":")
 
         val currentUser = userRepository
-            .findByUsername(username)
-            .orElseThrow { throw UsernameNotFoundException(username) }
+            .findByUsername(splitUser[0])
+            .ifPresent {
 
-        val customUser = User.builder()
-            .username(currentUser.username)
-            .password(currentUser.userPassword)
-            .roles(*currentUser.rolesSet.toTypedArray())
-            .build().toCustomUser(currentUser.userId ?: 1)
+                if(!passwordEncoder.matches(splitUser[1], it.userPassword)) {
+                    return@ifPresent;
+                }
 
-        val authentication = UsernamePasswordAuthenticationToken(
-            customUser, null,
-            if (currentUser == null) listOf() else customUser.authorities
-        )
+                val customUser = User.builder()
+                    .username(it.username)
+                    .password(it.userPassword)
+                    .roles(*it.rolesSet.toTypedArray())
+                    .build().toCustomUser(it.userId ?: 1)
 
-        authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
+                val authentication = UsernamePasswordAuthenticationToken(
+                    customUser, null, customUser.authorities
+                )
 
-        SecurityContextHolder.getContext().authentication = authentication
+                authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
+                SecurityContextHolder.getContext().authentication = authentication
+            }
+
         filterChain.doFilter(request, response)
     }
 }

@@ -35,6 +35,8 @@ class SecurityConfiguration(): WebSecurityConfigurerAdapter() {
             .and()
             .anonymous().principal("anonymous").authorities("ROLE_ANONYMOUS")
             .and()
+            .httpBasic()
+            .and()
             .authorizeRequests()
             .antMatchers("/test", "/login", "/api/v1/register", "/api/v1/send/message", "/api/v1/reset/password")
             .permitAll()
@@ -43,9 +45,9 @@ class SecurityConfiguration(): WebSecurityConfigurerAdapter() {
             .anyRequest()
             .hasAnyRole("ANONYMOUS", "USER")
 
-        http.addFilterBefore(
-                JwtFilter(userRepository),
-                UsernamePasswordAuthenticationFilter::class.java
+        http.addFilterAfter(
+                JwtFilter(userRepository, getPasswordEncoder()),
+                UsernamePasswordAuthenticationFilter::class.java,
             )
             .formLogin()
             .loginProcessingUrl("/login")
