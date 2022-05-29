@@ -4,9 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
+import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import pl.ms.saper.app.data.entites.SpotEntity
 
+@Repository
 interface SpotRepository: JpaRepository<SpotEntity, Int> {
 
     @Query("Select * from spots where x = :x and y = :y and board_id = :boardId", nativeQuery = true)
