@@ -5,9 +5,9 @@ import javax.validation.constraints.Email
 import javax.validation.constraints.NotEmpty
 
 class RegistrationModel(
-    @NotEmpty @Length(min = 5) val username: String,
-    @NotEmpty var password: String,
-    @NotEmpty @Email val email: String,
+    @field:NotEmpty @field:Length(min = 5) val username: String,
+    @field:NotEmpty var password: String,
+    @field:NotEmpty @field:Email val email: String,
 )
 
 

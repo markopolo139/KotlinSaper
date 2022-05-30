@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.security.authentication.InternalAuthenticationServiceException
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -179,4 +180,17 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
         errorMessage = ex.message ?: DEFAULT_ERROR_MESSAGE,
         httpStatus = HttpStatus.INTERNAL_SERVER_ERROR
     )
+
+    override fun handleHttpMessageNotReadable(
+        ex: HttpMessageNotReadableException,
+        headers: HttpHeaders,
+        status: HttpStatus,
+        request: WebRequest
+    ): ResponseEntity<Any> {
+        return error(
+            suggestedAction = "Give needed request body",
+            errorMessage = ex.message ?: "Required request body",
+            httpStatus = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
+    }
 }
