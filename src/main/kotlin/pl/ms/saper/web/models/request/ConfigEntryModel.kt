@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull
 import pl.ms.saper.web.validation.ValidConfigurationKey
 import javax.validation.Valid
 
-class ConfgiEntryModel(
+class ConfigEntryModel(
     @field:Valid @field:ValidConfigurationKey val configKey: String,
     @field:NotNull val value: String
 )

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 import pl.ms.saper.app.data.entites.ConfigEntity
 import java.util.*
 
@@ -17,6 +18,7 @@ interface ConfigRepository: JpaRepository<ConfigEntity, Int> {
     )
     fun findByUserId(@Param(value = "userId") userId: Int): Optional<ConfigEntity>
 
+    @Transactional
     @Modifying
     @Query(
         value = "delete from configuration_entry where configuration_id = :configId and entry_name = :configKey",
