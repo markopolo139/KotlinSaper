@@ -3,10 +3,10 @@ package pl.ms.saper.business.services
 import pl.ms.saper.business.entities.Board
 import pl.ms.saper.business.exceptions.SpotCheckedException
 import pl.ms.saper.business.exceptions.SpotFlaggedException
-import pl.ms.saper.business.exceptions.SpotMinedException
 import pl.ms.saper.business.exceptions.SpotRevealException
 import pl.ms.saper.business.values.Position
 import pl.ms.saper.business.values.Spot
+
 class GameService {
 
     fun check(position: Position, board: Board): Set<Spot> {

@@ -8,7 +8,6 @@ import pl.ms.saper.app.data.embeddable.ConfigEntryEmbeddable
 import pl.ms.saper.app.data.entites.ConfigEntity
 import pl.ms.saper.app.data.repositories.BoardRepository
 import pl.ms.saper.app.data.repositories.ConfigRepository
-import pl.ms.saper.app.exceptions.ConfigNotFoundException
 import pl.ms.saper.app.security.CustomUser
 
 @Component

@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Scope
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl
 import org.springframework.security.authentication.AnonymousAuthenticationProvider
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
@@ -16,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import pl.ms.saper.app.data.repositories.UserRepository
-import pl.ms.saper.app.security.MyUserDetails
 import pl.ms.saper.web.security.JwtFilter
 
 //TODO : check anonymous and authentication (in future change to jwt (to learn this))

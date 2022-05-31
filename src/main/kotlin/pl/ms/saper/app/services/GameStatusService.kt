@@ -9,7 +9,6 @@ import pl.ms.saper.app.converters.toBusiness
 import pl.ms.saper.app.converters.toModelList
 import pl.ms.saper.app.data.repositories.BoardRepository
 import pl.ms.saper.app.entities.GameConfiguration
-import pl.ms.saper.app.entities.Spot
 import pl.ms.saper.app.exceptions.BoardNotFoundException
 import pl.ms.saper.app.security.CustomUser
 import pl.ms.saper.web.models.request.SpotModel

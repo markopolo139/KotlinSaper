@@ -1,17 +1,13 @@
 package pl.ms.saper.app.entities
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 import pl.ms.saper.app.configuration.ConfigKeyImpl
 import pl.ms.saper.app.configuration.Configuration
-import pl.ms.saper.app.configuration.ConfigurationImpl
 import pl.ms.saper.app.data.entites.ConfigEntity
 import pl.ms.saper.app.data.entites.UserEntity
 import pl.ms.saper.business.entities.Board
 import pl.ms.saper.business.exceptions.InvalidPositionException
 import pl.ms.saper.business.values.Position
 import pl.ms.saper.business.values.Spot
-import javax.annotation.PostConstruct
 
 class Board(
     val boardId: Int,

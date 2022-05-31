@@ -4,13 +4,11 @@ import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import pl.ms.saper.app.data.repositories.UserRepository
-import pl.ms.saper.app.exceptions.InvalidUserException
 import pl.ms.saper.app.utils.toCustomUser
 import java.util.*
 import javax.servlet.FilterChain

@@ -6,7 +6,6 @@ import pl.ms.saper.app.configuration.ConfigKeyImpl
 import pl.ms.saper.app.configuration.Configuration
 import pl.ms.saper.app.data.embeddable.ConfigEntryEmbeddable
 import pl.ms.saper.app.data.embeddable.PositionEmbeddable
-import pl.ms.saper.app.data.embeddable.SpotStatus
 import pl.ms.saper.app.data.entites.BoardEntity
 import pl.ms.saper.app.data.entites.ConfigEntity
 import pl.ms.saper.app.data.entites.SpotEntity

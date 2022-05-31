@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service
 import pl.ms.saper.app.configuration.ConfigKeyImpl
 import pl.ms.saper.app.configuration.Configuration
 import pl.ms.saper.app.converters.toData
-import pl.ms.saper.app.data.embeddable.PositionEmbeddable
 import pl.ms.saper.app.data.embeddable.SpotStatus
 import pl.ms.saper.app.data.entites.BoardEntity
 import pl.ms.saper.app.data.entites.ConfigEntity

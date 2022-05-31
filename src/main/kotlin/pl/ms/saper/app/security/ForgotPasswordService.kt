@@ -7,11 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import org.thymeleaf.ITemplateEngine
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
-import org.thymeleaf.spring5.ISpringTemplateEngine
-import org.thymeleaf.util.StringUtils
 import pl.ms.saper.app.data.repositories.UserRepository
 import pl.ms.saper.app.exceptions.InvalidTokenException
 import pl.ms.saper.app.exceptions.InvalidUserEmailException

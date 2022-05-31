@@ -1,9 +1,9 @@
 package pl.ms.saper.web.models.request
 
-import org.hibernate.validator.constraints.Length
-import pl.ms.saper.business.values.Position
 import javax.validation.Valid
-import javax.validation.constraints.*
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
 
 class SpotModel(
     @Valid var positionModel: PositionModel,
