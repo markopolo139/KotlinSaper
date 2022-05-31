@@ -40,10 +40,6 @@ class GameStartService {
     @Autowired
     private lateinit var configRepository: ConfigRepository
 
-    companion object {
-        private const val RANDOM_SEED = 11122233
-    }
-
     private val userId
         get() = (SecurityContextHolder.getContext().authentication.principal as CustomUser).userId
 
@@ -72,11 +68,10 @@ class GameStartService {
         val height = configuration.getValue(ConfigKeyImpl.HEIGHT).toInt()
         val width = configuration.getValue(ConfigKeyImpl.WIDTH).toInt()
         var mines = configuration.getValue(ConfigKeyImpl.MINES).toInt()
-        val randomGenerator = Random(RANDOM_SEED)
 
         while (mines > 0) {
             val randomPosition = Position(
-                randomGenerator.nextInt(1, width + 1), randomGenerator.nextInt(1, height + 1)
+                Random.nextInt(1, width + 1), Random.nextInt(1, height + 1)
             )
 
             if (randomPosition == position || board.spots.any { it.position == randomPosition.toData() })
